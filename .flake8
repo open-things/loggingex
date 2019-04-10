@@ -1,0 +1,18 @@
+[flake8]
+jobs = 4
+max-line-length = 80
+max-complexity = 5
+application-import-names = loggingex,tests
+import-order-style = pycharm
+exclude =
+    .eggs,
+    .git,
+    .idea,
+    .pytest_cache,
+    .tox,
+    .venv,
+    build,
+    dist,
+    *.egg-info
+ignore = D1,C812,C814
+inline-quotes = double

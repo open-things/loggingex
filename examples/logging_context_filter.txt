@@ -1,0 +1,44 @@
+-:-:DEBUG: starting...
+datafile.txt:-:INFO: processing file: datafile.txt
+datafile.txt:1:DEBUG: processing line: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+datafile.txt:1:INFO: processed line: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+datafile.txt:2:DEBUG: processing line: incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+datafile.txt:2:INFO: processed line: incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+datafile.txt:3:DEBUG: processing line: nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+datafile.txt:3:INFO: processed line: nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+datafile.txt:4:DEBUG: processing line: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+datafile.txt:4:INFO: processed line: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+datafile.txt:5:DEBUG: processing line: fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+datafile.txt:5:INFO: processed line: fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+datafile.txt:6:DEBUG: processing line: culpa qui officia deserunt mollit anim id est laborum.
+datafile.txt:6:INFO: processed line: culpa qui officia deserunt mollit anim id est laborum.
+datafile.txt:7:DEBUG: processing line: 
+datafile.txt:7:ERROR: empty line!
+datafile.txt:8:DEBUG: processing line: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+datafile.txt:8:INFO: processed line: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+datafile.txt:9:DEBUG: processing line: incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+datafile.txt:9:INFO: processed line: incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+datafile.txt:10:DEBUG: processing line: nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+datafile.txt:10:INFO: processed line: nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+datafile.txt:11:DEBUG: processing line: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+datafile.txt:11:INFO: processed line: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+datafile.txt:12:DEBUG: processing line: fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+datafile.txt:12:INFO: processed line: fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+datafile.txt:13:DEBUG: processing line: culpa qui officia deserunt mollit anim id est laborum.
+datafile.txt:13:INFO: processed line: culpa qui officia deserunt mollit anim id est laborum.
+datafile.txt:14:DEBUG: processing line: 
+datafile.txt:14:ERROR: empty line!
+datafile.txt:15:DEBUG: processing line: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+datafile.txt:15:INFO: processed line: Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+datafile.txt:16:DEBUG: processing line: incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+datafile.txt:16:INFO: processed line: incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
+datafile.txt:17:DEBUG: processing line: nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+datafile.txt:17:INFO: processed line: nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+datafile.txt:18:DEBUG: processing line: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+datafile.txt:18:INFO: processed line: Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+datafile.txt:19:DEBUG: processing line: fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+datafile.txt:19:INFO: processed line: fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+datafile.txt:20:DEBUG: processing line: culpa qui officia deserunt mollit anim id est laborum.
+datafile.txt:20:INFO: processed line: culpa qui officia deserunt mollit anim id est laborum.
+datafile.txt:-:INFO: processed file: datafile.txt
+-:-:DEBUG: work is complete!
