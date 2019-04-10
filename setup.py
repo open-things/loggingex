@@ -8,7 +8,7 @@ def main():
         author="Paulius Maruška",
         author_email="paulius.maruska+loggingex@gmail.com",
         name="loggingex",
-        url="https://github.com/open-stuff/loggingex/",
+        url="https://github.com/open-things/loggingex/",
         packages=["loggingex", "loggingex.context"],
         package_dir={"": "src"},
         description="Logging Extensions",
