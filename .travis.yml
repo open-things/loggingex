@@ -1,0 +1,28 @@
+dist: xenial
+cache: false
+language: python
+
+jobs:
+  include:
+    - python: "3.7"
+      env: TOXENV=linting
+      name: "Linting (Python 3.7)"
+    - python: "3.5"
+      env: TOXENV=py35
+      name: "Unit tests (Python 3.5)"
+    - python: "3.6"
+      env: TOXENV=py36
+      name: "Unit tests (Python 3.6)"
+    - python: "3.7"
+      env: TOXENV=py37
+      name: "Unit tests (Python 3.7)"
+    - python: "3.7"
+      env: TOXENV=examples
+      name: "Examples (Python 3.7)"
+
+install:
+  - pip install --upgrade pip setuptools tox
+
+script:
+  - tox --version
+  - tox
