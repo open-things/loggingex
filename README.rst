@@ -2,6 +2,9 @@
 Logging Extensions
 ##################
 
+.. image:: https://travis-ci.com/open-things/loggingex.svg?branch=master
+    :target: https://travis-ci.com/open-things/loggingex
+
 Implements a few extensions for the standard python logging library.
 
 Currently, this project lacks documentation. Sorry about that.
