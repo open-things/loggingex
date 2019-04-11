@@ -2,23 +2,11 @@ dist: xenial
 cache: false
 language: python
 
-jobs:
-  include:
-    - python: "3.7"
-      env: TOXENV=linting
-      name: "Linting (Python 3.7)"
-    - python: "3.5"
-      env: TOXENV=py35
-      name: "Unit tests (Python 3.5)"
-    - python: "3.6"
-      env: TOXENV=py36
-      name: "Unit tests (Python 3.6)"
-    - python: "3.7"
-      env: TOXENV=py37
-      name: "Unit tests (Python 3.7)"
-    - python: "3.7"
-      env: TOXENV=examples
-      name: "Examples (Python 3.7)"
+stages:
+  - name: test
+    if: repo = open-things/loggingex AND tag IS NOT present
+  - name: deploy
+    if: repo = open-things/loggingex AND tag IS present
 
 install:
   - pip install --upgrade pip setuptools tox
@@ -26,3 +14,38 @@ install:
 script:
   - tox --version
   - tox
+
+jobs:
+  include:
+    - name: Linting
+      python: '3.7'
+      env: TOXENV=linting
+    - name: Unit tests
+      python: '3.5'
+      env: TOXENV=py35
+    - name: Unit tests
+      python: '3.6'
+      env: TOXENV=py36
+    - name: Unit tests
+      python: '3.7'
+      env: TOXENV=py37
+    - name: Examples
+      python: '3.7'
+      env: TOXENV=examples
+
+    - stage: deploy
+      name: Deploy to PyPI
+      python: '3.7'
+      install: pip install --upgrade pip setuptools setuptools_scm wheel
+      script: skip
+      deploy:
+        provider: pypi
+        distributions: sdist bdist_wheel
+        skip_existing: true
+        skip_upload_docs: true
+        user: Paulius.Maruska
+        password:
+          secure: eA1trAEUkHyaL7U2I7tPullxJI5fT8xobVtNKGYHu2JeC0nF8323All1ZSjKm87DvhN7Ilmrjh/yA8CF5n1qT2vHA/qLhhLLE6lIF/znhOHbLBAgfzon90D2PZU0HM7hjUCoIWzegYWrsCtIHVeSoFLjMElo4tS2zZaWr+hCfkifR+Cv6C/OwEYGiYruKEETVs41J6hd1y3cwHRNnZXV8cy2cHtFZ65FhHfQ0wklqe6y7JiuzGt53XRv3JzW0Ph6R1GulzzWjLB7xwkpPzcqLdBHy/ONkFb6pdVtUrw2N3Lb7HF8PAawh2Rr2GqHqh2RRu9WBngB/y/V4nlkOx4K/X5v5jwxCAy+fk9rG6X+w1htSPuJCldGWo3sZBWYPzUy6fdAbb2rJ2V8AVdYK8vU8HDipX3mqCWZr+7YgnUgIrcuGlAezwhroZz1Fbfmzcc/GTYfEBOt1tWnOmijLcAqHB0QLFYmFMXYkfDI3hfQ3Wsfguk2jliFnJHSpnRhlg+uAtTkzrOT2nlBbs2gzbGxZqX+CGLRvLWY4/JD+Ux73tKoBVjBSxuQufOFzlowF2yfWs50xrAt7hFuf0/SeIMfdQVNU8KB0NI7s2T0VWkKbNbgvegqjDq0b4ujaKh/ZKpv5pTF8Xyx06E+/exHStq+SoReAF8lSSo6SmF1AMHurrU=
+        on:
+          tags: true
+          repo: open-things/loggingex
