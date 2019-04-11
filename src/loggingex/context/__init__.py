@@ -293,7 +293,14 @@ class ContextChange:
 
         @wraps(func)
         def decorated(*args, **kwargs):
-            with self:
+            # copy self and the apply it
+            # https://github.com/open-things/loggingex/issues/8
+            context_change = ContextChange(
+                context_fresh=self.context_fresh,
+                context_remove=self.context_remove,
+                context_update=self.context_update,
+            )
+            with context_change:
                 return func(*args, **kwargs)
 
         return decorated
