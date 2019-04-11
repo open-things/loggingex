@@ -237,3 +237,15 @@ class ContextChangeAsDecoratorTests(InitializedContextBase):
         except ValueError:
             exception_raised = True
         assert exception_raised
+
+    def test_decorator_works_with_recursive_functions(self):
+        change = ContextChange().update(func="fib")
+
+        @change
+        def fib(n):
+            with ContextChange().update(calculating_fib_n=n):
+                if n in (0, 1):
+                    return 1
+                return fib(n - 2) + fib(n - 1)
+
+        assert fib(3) == 3
