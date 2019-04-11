@@ -128,6 +128,21 @@ class ContextChange:
 
         self.context_restore_token = context_restore_token
 
+    def __str__(self) -> str:
+        parts = [
+            "!" if self.context_restore_token else None,
+            "-*" if self.context_fresh else None,
+        ]
+        parts.extend("-%s" % n for n in sorted(self.context_remove))
+        upd = self.context_update
+        val = self.context_update.__getitem__
+        parts.extend("+%s=%r" % (n, val(n)) for n in sorted(upd.keys()))
+
+        return " ".join(x for x in parts if x)
+
+    def __repr__(self):
+        return "<ContextChange: %s>" % str(self)
+
     @classmethod
     def validate_context_variable_name(
         cls, name: ContextVariableUnvalidatedName
