@@ -140,6 +140,9 @@ class ContextChange:
 
         return " ".join(x for x in parts if x)
 
+    def __repr__(self):
+        return "<ContextChange: %s>" % str(self)
+
     @classmethod
     def validate_context_variable_name(
         cls, name: ContextVariableUnvalidatedName
