@@ -8,7 +8,7 @@ log = logging.getLogger()
 
 def process_lines(lines):
     for index, line in enumerate(lines):
-        line: str = line.strip()
+        line = line.strip()
         with context(current_line=index + 1):
             log.debug("processing line: %s", line)
             if not line:
