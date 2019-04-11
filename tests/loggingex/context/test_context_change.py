@@ -299,3 +299,7 @@ class SerializationTests:
     def test_str_context_change_test(self, context_change_and_expected_str):
         change, expected = context_change_and_expected_str
         assert str(change) == expected
+
+    def test_repr_context_change_test(self, context_change_and_expected_str):
+        change, expected = context_change_and_expected_str
+        assert repr(change) == "<ContextChange: %s>" % expected
