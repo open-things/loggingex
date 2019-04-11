@@ -1,4 +1,6 @@
-from pytest import mark, raises
+from itertools import product, starmap
+
+from pytest import fixture, mark, raises
 
 from loggingex.context import (
     ContextChange,
@@ -249,3 +251,51 @@ class ContextChangeAsDecoratorTests(InitializedContextBase):
                 return fib(n - 2) + fib(n - 1)
 
         assert fib(3) == 3
+
+
+class SerializationTests:
+    VALUE_MAP = {
+        "locked": {False: None, True: "not a None"},
+        "fresh": {False: False, True: True},
+        "remove": {False: set(), True: ("b", "a")},
+        "update": {False: {}, True: {"y": 2.3, "x": 1, "z": "dummy"}},
+    }
+    STR_MAP = {
+        "locked": {False: None, True: "!"},
+        "fresh": {False: None, True: "-*"},
+        "remove": {False: None, True: "-a -b"},
+        "update": {False: None, True: "+x=1 +y=2.3 +z='dummy'"},
+    }
+
+    FIXTURES = product([False, True], repeat=4)
+    FIXTURE_IDS = starmap(
+        "{}__{}__{}__{}".format,
+        product(
+            ("unlocked", "locked"),
+            ("unfresh", "fresh"),
+            ("no_remove", "with_remove"),
+            ("no_update", "with_update"),
+        ),
+    )
+
+    @fixture(params=FIXTURES, ids=FIXTURE_IDS)
+    def context_change_and_expected_str(self, request):
+        locked, fresh, remove, update = request.param
+        change = ContextChange(
+            context_fresh=self.VALUE_MAP["fresh"][fresh],
+            context_remove=self.VALUE_MAP["remove"][remove],
+            context_update=self.VALUE_MAP["update"][update],
+            context_restore_token=self.VALUE_MAP["locked"][locked],
+        )
+        parts = [
+            self.STR_MAP["locked"][locked],
+            self.STR_MAP["fresh"][fresh],
+            self.STR_MAP["remove"][remove],
+            self.STR_MAP["update"][update],
+        ]
+        expected_str = " ".join(x for x in parts if x)
+        return change, expected_str
+
+    def test_str_context_change_test(self, context_change_and_expected_str):
+        change, expected = context_change_and_expected_str
+        assert str(change) == expected
