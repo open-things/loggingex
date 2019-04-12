@@ -5,12 +5,12 @@ LoggingContextFilter is class that you need to add to your loggers or handlers.
 The context helper is function that you can use anywhere in your code to quickly
 put value into the logging context.
 """
-from contextvars import ContextVar, Token
+from contextvars import Token
 from functools import partial, wraps
 from itertools import chain
 from logging import LogRecord
 from operator import contains
-from typing import Any, AnyStr, ClassVar, Dict, Iterable, Optional, Set
+from typing import Any, AnyStr, Iterable, Optional, Set
 
 from .exceptions import (
     ContextChangeAlreadyStartedException,
@@ -18,6 +18,7 @@ from .exceptions import (
     ContextException,
     ContextInvalidNameException,
 )
+from .store import CONTEXT_STORE_VARIABLE_NAME, ContextStore, ContextType
 
 __all__ = (
     # exceptions
@@ -37,51 +38,10 @@ __all__ = (
 )
 
 
-ContextType = Dict[AnyStr, Any]
 ContextUpdateType = ContextType
 ContextRemoveType = Set[AnyStr]
 ContextVariableUnvalidatedName = Any
 ContextVariableUnvalidatedNames = Iterable[ContextVariableUnvalidatedName]
-
-
-class ContextStore:
-    _context = None  # type: ClassVar[ContextVar[ContextType]]
-
-    @classmethod
-    def initialize_context(cls):
-        """Ensure private static context is initialized."""
-        if not ContextStore._context:
-            ContextStore._context = ContextVar(CONTEXT_STORE_VARIABLE_NAME)
-            ContextStore._context.set({})
-
-    @property
-    def context(self) -> ContextVar[ContextType]:
-        """Public singleton for the static context."""
-        return ContextStore._context
-
-    def get(self) -> ContextType:
-        """Return current context."""
-        self.initialize_context()
-        ctx = self.context.get({})
-        return ctx
-
-    def replace(self, ctx: ContextType) -> Token:
-        """Replace current context with a new one.
-
-        :param ctx: new context.
-        :return: token, to be passed to restore.
-        """
-        self.initialize_context()
-        token = self.context.set(ctx)
-        return token
-
-    def restore(self, token: Token) -> None:
-        """Restore context.
-
-        :param token: token to be restored to.
-        """
-        self.initialize_context()
-        self.context.reset(token)
 
 
 class ContextChange:
@@ -353,7 +313,6 @@ class LoggingContextFilter:
 
 
 # settings
-CONTEXT_STORE_VARIABLE_NAME = "LOGGINGEX__CONTEXT__STORE"
 CONTEXT_STORE_CLASS = ContextStore
 
 
