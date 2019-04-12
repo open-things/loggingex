@@ -3,6 +3,7 @@ from logging import DEBUG, LogRecord
 from pytest import fixture, mark
 
 from loggingex.context import LoggingContextFilter
+from loggingex.context.filter import IGNORED_VARIABLE_NAMES
 from .helpers import InitializedContextBase
 
 
@@ -20,7 +21,7 @@ class FilterTests(InitializedContextBase):
         assert record.bar == 2.3
         assert record.baz == "dummy"
 
-    @mark.parametrize("field", LoggingContextFilter.IGNORED_VARIABLE_NAMES)
+    @mark.parametrize("field", IGNORED_VARIABLE_NAMES)
     def test_ignores_variables_that_would_overwrite_record_fields(
         self, store, record, field
     ):
