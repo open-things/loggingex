@@ -2,8 +2,23 @@
 Logging Extensions
 ##################
 
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/ambv/black
+
+.. image:: https://img.shields.io/github/license/open-things/loggingex.svg
+    :target: https://github.com/open-things/loggingex/blob/master/LICENSE
+
 .. image:: https://travis-ci.com/open-things/loggingex.svg?branch=master
     :target: https://travis-ci.com/open-things/loggingex
+
+.. image:: https://img.shields.io/pypi/v/loggingex.svg?color=green
+    :target: https://pypi.org/project/loggingex/
+
+.. image:: https://img.shields.io/pypi/pyversions/loggingex.svg
+    :target: https://pypi.org/project/loggingex/
+
+.. image:: https://img.shields.io/pypi/dm/loggingex.svg
+    :target: https://pypi.org/project/loggingex/
 
 Implements a few extensions for the standard python logging library.
 
