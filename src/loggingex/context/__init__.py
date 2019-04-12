@@ -12,12 +12,19 @@ from logging import LogRecord
 from operator import contains
 from typing import Any, AnyStr, ClassVar, Dict, Iterable, Optional, Set
 
+from .exceptions import (
+    ContextChangeAlreadyStartedException,
+    ContextChangeNotStartedException,
+    ContextException,
+    ContextInvalidNameException,
+)
+
 __all__ = (
     # exceptions
-    "ContextException",
-    "ContextInvalidNameException",
     "ContextChangeAlreadyStartedException",
     "ContextChangeNotStartedException",
+    "ContextException",
+    "ContextInvalidNameException",
     # internal-ish classes
     "ContextStore",
     "ContextChange",
@@ -28,22 +35,6 @@ __all__ = (
     "LoggingContextFilter",
     "context",
 )
-
-
-class ContextException(Exception):
-    pass
-
-
-class ContextInvalidNameException(ContextException):
-    pass
-
-
-class ContextChangeAlreadyStartedException(ContextException):
-    pass
-
-
-class ContextChangeNotStartedException(ContextException):
-    pass
 
 
 ContextType = Dict[AnyStr, Any]

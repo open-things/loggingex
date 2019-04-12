@@ -5,6 +5,6 @@ try:
 except ImportError:
     __version__ = "unknown"
 
-import loggingex.context as context
+from .exceptions import LoggingExtensionsException
 
-__all__ = ["__version__", "context"]
+__all__ = ["__version__", "LoggingExtensionsException"]
