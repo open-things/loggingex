@@ -2,6 +2,8 @@ import os
 
 import setuptools
 
+PACKAGES = ["loggingex", "loggingex.context", "loggingex.wsgi"]
+
 
 def main():
     return setuptools.setup(
@@ -9,7 +11,7 @@ def main():
         author_email="paulius.maruska+loggingex@gmail.com",
         name="loggingex",
         url="https://github.com/open-things/loggingex/",
-        packages=["loggingex", "loggingex.context", "loggingex.wsgi"],
+        packages=PACKAGES,
         package_dir={"": "src"},
         description="Logging Extensions",
         long_description=read_file("README.rst"),
@@ -19,12 +21,14 @@ def main():
             "write_to": "src/loggingex/_version.py",
             "write_to_template": VERSION_FILE_TEMPLATE,
         },
-        setup_requires=["setuptools_scm"],
+        setup_requires=SETUP_REQUIRES,
         python_requires=">=3.5",
         install_requires=INSTALL_REQUIRES,
+        classifiers=CLASSIFIERS,
     )
 
 
+SETUP_REQUIRES = ["setuptools_scm"]
 INSTALL_REQUIRES = ['contextvars;python_version<"3.7"']
 
 VERSION_FILE_TEMPLATE = """\
@@ -33,6 +37,23 @@ VERSION_FILE_TEMPLATE = """\
 # don't change, don't track in version control
 version = "{version}"
 """
+
+CLASSIFIERS = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.5",
+    "Programming Language :: Python :: 3.6",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3 :: Only",
+    "Topic :: Software Development :: Libraries",
+    "Topic :: System :: Logging",
+]
 
 
 def read_file(name):
