@@ -9,7 +9,7 @@ def main():
         author_email="paulius.maruska+loggingex@gmail.com",
         name="loggingex",
         url="https://github.com/open-things/loggingex/",
-        packages=["loggingex", "loggingex.context"],
+        packages=["loggingex", "loggingex.context", "loggingex.wsgi"],
         package_dir={"": "src"},
         description="Logging Extensions",
         long_description=read_file("README.rst"),
