@@ -1,0 +1,5 @@
+{
+    "name": "Logging Context Filter demo",
+    "command": ["python", "example.py", "datafile.txt"],
+    "output": "output.txt"
+}

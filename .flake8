@@ -8,6 +8,7 @@ exclude =
     .eggs,
     .git,
     .idea,
+    .nox,
     .pytest_cache,
     .tox,
     .venv,
