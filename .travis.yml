@@ -3,35 +3,64 @@ cache: false
 language: python
 
 stages:
+  - name: lint
+    if: repo = open-things/loggingex AND tag IS NOT present
   - name: test
     if: repo = open-things/loggingex AND tag IS NOT present
   - name: deploy
     if: repo = open-things/loggingex AND tag IS present
 
 install:
-  - pip install --upgrade pip setuptools tox
+  - pip install --upgrade pip setuptools nox
 
 script:
-  - tox --version
-  - tox
+  - nox --version
+  - nox
 
 jobs:
   include:
-    - name: Linting
+    - stage: lint
+      name: Black check (python 3.7)
+      language: python
       python: '3.7'
-      env: TOXENV=linting
-    - name: Unit tests
+      env: NOXSESSION=black
+    - stage: lint
+      name: Flake8 (python 3.7)
+      language: python
+      python: '3.7'
+      env: NOXSESSION=flake8
+
+    - stage: test
+      name: Unit tests (python 3.5)
+      language: python
       python: '3.5'
-      env: TOXENV=py35
-    - name: Unit tests
+      env: NOXSESSION=tests-3.5
+    - stage: test
+      name: Unit tests (python 3.6)
+      language: python
       python: '3.6'
-      env: TOXENV=py36
-    - name: Unit tests
+      env: NOXSESSION=tests-3.6
+    - stage: test
+      name: Unit tests (python 3.7)
+      language: python
       python: '3.7'
-      env: TOXENV=py37
-    - name: Examples
+      env: NOXSESSION=tests-3.7
+
+    - stage: test
+      name: Example 'logging_context_filter' (python 3.5)
+      language: python
+      python: '3.5'
+      env: NOXSESSION="example-3.5(name='logging_context_filter')"
+    - stage: test
+      name: Example 'logging_context_filter' (python 3.6)
+      language: python
+      python: '3.6'
+      env: NOXSESSION="example-3.6(name='logging_context_filter')"
+    - stage: test
+      name: Example 'logging_context_filter' (python 3.7)
+      language: python
       python: '3.7'
-      env: TOXENV=examples
+      env: NOXSESSION="example-3.7(name='logging_context_filter')"
 
     - stage: deploy
       name: Deploy to PyPI

@@ -1,5 +1,6 @@
 .eggs
 .idea
+.nox
 .tox
 .venv
 __pycache__
