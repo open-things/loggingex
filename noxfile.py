@@ -1,10 +1,11 @@
 from json import loads
 from pathlib import Path
-from typing import Any, Dict, Iterable
+from typing import Any, Dict, Iterable, List, Tuple, Union
 
 import nox
 from nox.sessions import Session
 
+DepsT = Union[List[str], Tuple[str]]
 TEST_DEPENDENCIES = ("pytest", "pytest-mock", "webtest")
 BLACK_DEPENDENCIES = ("black",)
 BLACKEN_DEPENDENCIES = ("black",)
@@ -33,53 +34,41 @@ EXAMPLES_ROOT = Path(PROJECT_ROOT, "examples")
 
 @nox.session(python="3.7")
 def blacken(session: Session):
-    session.install(*BLACKEN_DEPENDENCIES)
-    session.run("python", "--version")
-    session.run("pip", "--version")
-    session.run("black", "--version")
+    install_dependencies(session, BLACKEN_DEPENDENCIES, install_self=False)
+    show_environment_info(session, ("black", "--version"))
     session.run("black", ".")
 
 
 @nox.session(python="3.7")
 def black(session: Session):
-    session.install(*BLACK_DEPENDENCIES)
-    session.run("python", "--version")
-    session.run("pip", "--version")
-    session.run("black", "--version")
+    install_dependencies(session, BLACK_DEPENDENCIES, install_self=False)
+    show_environment_info(session, ("black", "--version"))
     session.run("black", "--check", ".")
 
 
 @nox.session(python="3.7")
 def flake8(session: Session):
-    session.install(*FLAKE8_DEPENDENCIES)
-    session.run("python", "--version")
-    session.run("pip", "--version")
-    session.run("flake8", "--version")
+    install_dependencies(session, FLAKE8_DEPENDENCIES, install_self=False)
+    show_environment_info(session, ("flake8", "--version"))
     session.run("flake8", ".")
 
 
 @nox.session(python=["3.5", "3.6", "3.7"])
 def tests(session: Session):
-    session.install(*TEST_DEPENDENCIES)
+    install_dependencies(session, TEST_DEPENDENCIES)
     session.install(".")
-    session.run("python", "--version")
-    session.run("pip", "--version")
-    session.run("pytest", "--version")
+    show_environment_info(session, ("pytest", "--version"))
     session.run("pytest")
 
 
 def example_run(session: Session, name: str = None):
     descr = get_example_descr(name)
 
-    if descr.get("requires", []):
-        session.install(*descr["requires"])
-    session.install(".")
-    session.run("python", "--version")
-    session.run("pip", "--version")
-    session.run("pip", "list", "--format=columns")
+    install_dependencies(session, descr.get("requires", []))
+    show_environment_info(session)
 
     session.log("Running example %r", descr.get("name"))
-    session.chdir(descr["dir"])
+    session.chdir(str(descr["dir"].absolute()))
     result = session.run(*descr["command"], silent=True)
 
     output = get_contents(Path(descr["dir"], descr["output"]))
@@ -95,6 +84,23 @@ def example_run(session: Session, name: str = None):
             result,
         )
     session.log("Example output matched expected output, all is well.")
+
+
+def install_dependencies(
+    session: Session, dependencies: DepsT = None, install_self: bool = True
+):
+    if dependencies:
+        session.install(*dependencies)
+    if install_self:
+        session.install(".")
+
+
+def show_environment_info(session: Session, *args):
+    session.run("python", "--version")
+    session.run("pip", "--version")
+    session.run("pip", "list", "--format=columns")
+    for arg in args:
+        session.run(*arg)
 
 
 def get_contents(filename: Path) -> str:
